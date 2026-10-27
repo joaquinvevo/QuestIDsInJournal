@@ -6,7 +6,7 @@ I originally wanted something simple: a way to see a quest's **EditorID**, **For
 
 **Tested game version: Skyrim SE 1.5.97.** Support for other runtimes has not been verified.
 
-<!-- Add an in-game screenshot of the journal here after uploading one to the repository. -->
+<!-- Optional: add a real in-game screenshot here when one is available. -->
 
 ## Features
 
@@ -37,7 +37,7 @@ You do **not** need the Apostasy modlist. It was simply the environment used dur
 4. Launch Skyrim through **SKSE**.
 5. Open the quest journal, or go to **Mod Configuration > Quest IDs in Journal** to adjust the settings.
 
-The ESP is ESL-flagged. The compiled mod archive should include the DLL, INI, ESP, SEQ, and Papyrus PEX files. **This GitHub repository is for the source code**; it is not a substitute for installing the compiled mod.
+The ESP is ESL-flagged. The compiled mod archive should include the DLL, INI, ESP, SEQ, and Papyrus PEX files. **This repository contains the development source**, not a ready-to-install replacement for the compiled mod archive.
 
 ## Default Hotkeys
 
@@ -84,11 +84,28 @@ I made this because it was a small feature I genuinely wanted in my own Skyrim p
 
 This is a personal hobby project. I hope someone else finds it useful too.
 
-## Contributions and Permissions
+## Building from Source
 
-Feel free to look through the source, report bugs, suggest improvements, make compatibility patches, or build your own version. I have no problem with other people improving or continuing the project.
+The SKSE plugin is written in C++ and uses **CommonLibSSE NG**, **CMake**, **vcpkg**, and the **Visual Studio 2022 / MSVC build tools** on Windows.
 
-Credit is appreciated but isn't something I want to insist on. Please respect the licenses of any third-party dependencies or assets. A separate license file should be included to clearly define reuse and redistribution rights for the original source code.
+Once the project's external dependencies are available in the locations expected by its CMake configuration, run the Windows preset:
+
+```powershell
+cmake --preset release-windows
+cmake --build --preset release-windows
+```
+
+CommonLibSSE NG and vcpkg are external dependencies, not code authored for this mod. To make a fresh clone buildable, the repository must provide working dependency instructions and/or correctly configured Git submodules. **Do not commit entire local dependency checkouts or build folders.**
+
+The SkyUI MCM uses two Papyrus source files, `QIJ_MCM.psc` and `QIJ_MCMBridge.psc`, which must be compiled separately to `.pex` files for the installable version. The MCM ESP and SEQ must also be included in the distributed mod archive.
+
+## Contributions and License
+
+Bug reports, compatibility patches, forks, modifications, and improvements are welcome. You do not need to ask me before making a fork or creating your own version, provided you follow the applicable licenses.
+
+This repository uses the **GNU General Public License version 3 or later (GPL-3.0-or-later)**; see [LICENSE](LICENSE). Under this license you may study, modify, and redistribute the code, but redistribution comes with requirements, including preserving applicable notices and providing corresponding source when required. I don't ask for additional personal credit beyond the notices the license requires.
+
+The project started from the [CommonLibSSE-NG template](https://github.com/codepuncher/CommonLibSSE-NG-template) and uses third-party dependencies that retain their own licensing terms. The project license does not grant any rights to Bethesda game assets or other third-party material.
 
 ## Credits
 
