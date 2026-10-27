@@ -1,0 +1,16 @@
+# Local dependencies
+/lib/
+
+# Build output
+/build/
+/out/
+/.vs/
+/vcpkg_installed/
+
+# Local configuration and temporary files
+.env
+.env.*
+*.obj
+*.pdb
+*.log
+*.tmp
