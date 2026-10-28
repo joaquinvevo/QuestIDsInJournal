@@ -86,16 +86,23 @@ This is a personal hobby project. I hope someone else finds it useful too.
 
 ## Building from Source
 
-The SKSE plugin is written in C++ and uses **CommonLibSSE NG**, **CMake**, **vcpkg**, and the **Visual Studio 2022 / MSVC build tools** on Windows.
+The SKSE plugin is written in C++ and uses **CommonLibSSE-NG**, **CMake**, **vcpkg**, and **Visual Studio 2022 / MSVC build tools** on Windows. You will also need Git and Ninja.
 
-Once the project's external dependencies are available in the locations expected by its CMake configuration, run the Windows preset:
+To keep this repository small, the third-party dependencies in `lib/` are **not included**. Download them separately into the paths expected by `CMakePresets.json` and `CMakeLists.txt`.
+
+From the root of the cloned QuestIDsInJournal repository, run in PowerShell:
 
 ```powershell
+New-Item -ItemType Directory -Force lib | Out-Null
+git clone --branch ng https://github.com/alandtse/CommonLibSSE-NG.git lib/commonlibsse-ng
+git clone https://github.com/microsoft/vcpkg.git lib/vcpkg
+.\lib\vcpkg\bootstrap-vcpkg.bat
+
 cmake --preset release-windows
 cmake --build --preset release-windows
 ```
 
-CommonLibSSE NG and vcpkg are external dependencies, not code authored for this mod. To make a fresh clone buildable, the repository must provide working dependency instructions and/or correctly configured Git submodules. **Do not commit entire local dependency checkouts or build folders.**
+If you already have either dependency folder, keep it rather than cloning over it. These commands fetch upstream versions; the exact revisions used to compile the published DLL are not pinned here, so newer upstream changes may require adjustments.
 
 The SkyUI MCM uses two Papyrus source files, `QIJ_MCM.psc` and `QIJ_MCMBridge.psc`, which must be compiled separately to `.pex` files for the installable version. The MCM ESP and SEQ must also be included in the distributed mod archive.
 
